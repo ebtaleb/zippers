@@ -1,0 +1,4 @@
+*.cmo
+*.cmi
+*.hs
+a.out
