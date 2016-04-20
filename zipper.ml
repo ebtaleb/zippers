@@ -136,6 +136,12 @@ let rec last_child_of_pos ((t,p) as z) = try last_child_of_pos (move_right z) wi
 
 let serialize = fold_tree (fun x ys -> [x] @ (List.concat ys))
 
+let rec trav f g t =
+  match t with
+    | Branch(x, []) -> [f x]
+    | Branch(x, cs) -> List.map (fun c ->
+                    match c with Branch(cc,_) -> g c) cs @ List.concat @@ List.map trav cs
+
 let rec deserialize input =
     let rec helper z input =
         let (cnode, p) = z in
